@@ -1,13 +1,13 @@
 $:.unshift(File.dirname(__FILE__)) 
 
-%w[fileutils digest/sha1 colored readline].each { |f| require "#{f}" }
+%w[fileutils digest/sha1 colored readline highline/import].each { |f| require "#{f}" }
 
 %w[exceptions
    base
    list
    formatter
    task
-   readline_helper].each { |f| require "dooby/#{f}" }
+   cli_helper].each { |f| require "dooby/#{f}" }
    
 module Dooby
   
@@ -43,7 +43,7 @@ module Dooby
     current_list
   end
   
-  def self.readline_helper
-    @readline_helper ||= ReadlineHelper.new
+  def self.cli_helper
+    CLIHelper
   end
 end
