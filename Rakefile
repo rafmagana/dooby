@@ -7,7 +7,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "dooby"
     gem.summary = %Q{A very simplistic command-line to-do list manager in Ruby}
-    gem.description = %Q{A very simplistic command-line to-do list manager in Ruby}
+    gem.description = %Q{With Dooby you can handle your to-do list or your notes in a simple way and through the command-line.}
     gem.email = "raf.magana@gmail.com"
     gem.homepage = "http://github.com/rafmagana/dooby"
     gem.authors = ["Rafael Magaña"]
