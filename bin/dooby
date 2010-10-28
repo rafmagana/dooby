@@ -1,0 +1,150 @@
+#!/usr/bin/env ruby
+
+STDOUT.sync = true
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'rubygems'
+require 'main'
+require 'dooby'
+
+ORIGINAL_ARGV = ARGV.dup
+
+stty_save = `stty -g`.chomp
+
+Main {
+
+   def run
+     puts Dooby.current_list.list
+   end
+   
+  mode 'init' do
+    description 'Creates .dooby/list.yml file'
+    def run
+      Dooby.init
+    end    
+  end
+  
+  mode 'flush' do
+    description 'Deletes all the tasks'
+    def run
+      puts "Sure???".red_on_white.bold  + " (yes/no)".red.bold
+      sure = STDIN.gets
+      if sure.chomp == 'yes'
+        Dooby.current_list.flush!
+        puts "All the task were deleted!".red.bold
+      else
+        puts "Keep doing things!".green.bold
+      end
+    end
+  end
+  
+  mode 'trash' do
+    description 'Deletes the .dooby directory'
+    def run
+      puts "Sure???".red_on_white.bold  + " (yes/no)".red.bold
+      sure = STDIN.gets
+      if sure.chomp == 'yes'
+        Dooby.trash!
+        puts "No more dooby here T_T".red.bold
+      else
+        puts "Keep doing things!".green.bold
+      end
+    end    
+  end
+  
+  mode 'add' do
+    description 'Creates a new task and adds it to the current todo list'
+    argument 'task_text'
+    def run
+      Dooby.current_list.add do |t|
+        t.todo = params[:task_text].value
+        t.hold!
+      end
+      
+      puts 'Task added!'
+    end
+  end
+    
+  mode 'ilist' do
+    description "Interactive Listing"
+    def run
+      puts "input #hashtag, @person, %project, :status or simple text"
+      while line = Readline.readline('> ', true)
+        puts
+        puts Dooby.current_list.list line.split(' ')
+        puts
+      end
+    end
+  end
+  
+  mode 'list' do
+    description 'Lists @people, #tags, %projects or tasks (default)'
+
+    argument('what_to_show'){
+      arity -1 # zero or more arguments
+    }
+    
+    def run
+      puts Dooby.current_list.list params[:what_to_show].values
+    end
+  end  
+  
+  mode 'delete' do
+    def run
+      if Dooby.current_list.tasks.empty?
+        puts 'No tasks to delete'.red
+        exit
+      end
+      
+      Dooby.readline_helper.completion_list = Dooby.current_list.tasks.keys
+      
+      task_id = ''
+
+      while line = Readline.readline('Task ID '.red.bold + '> ')
+        task_id = line.chomp.strip
+        if Dooby.current_list.delete! task_id
+          puts task_id + ' deleted...'
+          exit
+        else
+          puts "Don't try to fool #{'Dooby'.red}, she knows such task doesn't exists"
+        end
+      end
+    end
+  end
+  
+  mode 'edit' do
+    def run
+      Dooby.readline_helper.completion_list = Dooby.current_list.tasks.keys
+
+      task_id = ''
+      
+      while line = Readline.readline('Task ID '.blue.bold + '> ')
+        task_id = line.chomp.strip
+        if Dooby.current_list.tasks.key? task_id
+          todo_to_edit = Dooby.current_list.tasks[task_id].todo
+          Readline::HISTORY.push todo_to_edit
+          Dooby.readline_helper.completion_list = [todo_to_edit]
+          break
+        else
+          puts "Task doesn't exist".red.bold
+          exit
+        end
+      end
+    
+      while line = Readline.readline('TAB or up arrow to edit '.blue.bold + '> ')
+        if line
+          Dooby.current_list.edit!(task_id, line.chomp.strip)
+          exit
+        end
+      end
+      
+      
+      rescue Interrupt
+        system("stty", stty_save)
+        exit
+        
+    end
+  end
+
+}
