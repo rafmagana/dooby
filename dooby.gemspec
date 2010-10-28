@@ -5,13 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dooby}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rafael Maga\303\261a"]
-  s.date = %q{2010-10-27}
+  s.date = %q{2010-10-28}
   s.default_executable = %q{dooby}
-  s.description = %q{A very simplistic command-line to-do list manager in Ruby}
+  s.description = %q{With Dooby you can handle your to-do list or your notes in a simple way and through the command-line.}
   s.email = %q{raf.magana@gmail.com}
   s.executables = ["dooby"]
   s.extra_rdoc_files = [
@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
      ".gitignore",
+     "Gemfile",
+     "Gemfile.lock",
      "LICENSE",
      "README.md",
      "Rakefile",
@@ -29,10 +31,10 @@ Gem::Specification.new do |s|
      "dooby.gemspec",
      "lib/dooby.rb",
      "lib/dooby/base.rb",
+     "lib/dooby/cli_helper.rb",
      "lib/dooby/exceptions.rb",
      "lib/dooby/formatter.rb",
      "lib/dooby/list.rb",
-     "lib/dooby/readline_helper.rb",
      "lib/dooby/task.rb",
      "test/helper.rb",
      "test/test_dooby.rb"
@@ -54,13 +56,22 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<shoulda>, [">= 2.11.3"])
       s.add_development_dependency(%q<mocha>, [">= 0.9.8"])
+      s.add_runtime_dependency(%q<main>, [">= 4.2.0"])
+      s.add_runtime_dependency(%q<colored>, [">= 1.2"])
+      s.add_runtime_dependency(%q<highline>, [">= 1.6.1"])
     else
       s.add_dependency(%q<shoulda>, [">= 2.11.3"])
       s.add_dependency(%q<mocha>, [">= 0.9.8"])
+      s.add_dependency(%q<main>, [">= 4.2.0"])
+      s.add_dependency(%q<colored>, [">= 1.2"])
+      s.add_dependency(%q<highline>, [">= 1.6.1"])
     end
   else
     s.add_dependency(%q<shoulda>, [">= 2.11.3"])
     s.add_dependency(%q<mocha>, [">= 0.9.8"])
+    s.add_dependency(%q<main>, [">= 4.2.0"])
+    s.add_dependency(%q<colored>, [">= 1.2"])
+    s.add_dependency(%q<highline>, [">= 1.6.1"])
   end
 end
 
