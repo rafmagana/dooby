@@ -29,14 +29,18 @@ module Dooby
       end
     end
     
-    def edit!(task_id, new_text)
+    def edit!(task_id)
       old_task = @tasks[task_id]
-      delete! task_id
-      add do |t|
-        t.todo = new_text
-        t.priority = old_task.priority
-        t.status = old_task.status
+      t = Task.new
+      if old_task
+        yield t
       end
+      
+      t.priority = old_task.priority
+      t.status  = old_task.status
+      
+      delete! task_id
+      add t
     end
     
     def tasks
