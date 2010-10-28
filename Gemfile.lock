@@ -1,0 +1,16 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    arrayfields (4.7.4)
+    colored (1.2)
+    fattr (2.1.0)
+    main (4.2.0)
+      arrayfields (>= 4.7.4)
+      fattr (>= 2.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  colored (= 1.2)
+  main (= 4.2.0)
