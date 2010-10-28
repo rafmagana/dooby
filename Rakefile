@@ -13,7 +13,9 @@ begin
     gem.authors = ["Rafael Magaña"]
     gem.add_development_dependency "shoulda", ">= 2.11.3"
     gem.add_development_dependency "mocha", ">= 0.9.8"
-    #gem.add_runtime_dependency('main', ">= 4.2.0")
+    gem.add_runtime_dependency('main', ">= 4.2.0")
+    gem.add_runtime_dependency('colored', ">= 1.2")
+    gem.add_runtime_dependency('highline', ">= 1.6.1")
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
