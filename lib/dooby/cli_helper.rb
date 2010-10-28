@@ -5,7 +5,7 @@ module Dooby
     TRASH = "Sure you want to delete the .dooby directory???".red_on_white.bold
     
     def self.flush?
-      agree SURE_DEL_TAKS, true      
+      agree DEL_TASKS, true      
     end
     
     def self.trash?

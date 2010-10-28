@@ -3,7 +3,7 @@ module Dooby
   class List
   
     attr_reader :location
-    
+
     def initialize(location)
       @location = location
       @tasks = {}
@@ -51,12 +51,18 @@ module Dooby
       list = []
       
       if @tasks.empty?
-        list = 'No tasks'
+        list = nil
       else
-        if what_to_show.empty?
-          list << 'Showing all items...'.blue_on_white.bold
+        case what_to_show
+        when [] then
           @tasks.each do |id, task|
             list << " (#{id.red})  #{task.colorize}"
+          end
+        when *SPECIAL_TAGS then 
+          @tasks.each do |id, task|
+            task.todo.gsub(/(#{what_to_show}\w+)/).each do |tag|
+              list << tag.blue unless list.include? tag.blue
+            end
           end
         else
           @tasks.each do |id, task|
@@ -65,11 +71,7 @@ module Dooby
             end
           end
           
-          if list.empty?
-            list.unshift 'No items found containing:'.red_on_white.bold + ' ' + what_to_show.join(' and '.blue)
-          else
-            list.unshift 'Showing items containing:'.blue_on_white.bold + ' ' + what_to_show.join(' and '.blue)
-          end
+          list = nil if list.empty?
         end
       end
             

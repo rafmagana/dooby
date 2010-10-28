@@ -12,17 +12,98 @@ ORIGINAL_ARGV = ARGV.dup
 
 Main {
 
+   ########################## DEFAULT #############################
    def run
      puts Dooby.current_list.list
    end
    
+  ########################## INIT #################################  
   mode 'init' do
     description 'Creates .dooby/list.yml file'
     def run
       Dooby.init
     end    
   end
+    
+  ########################## ADD #################################  
+  mode 'add' do
+    description 'Creates a new task and adds it to the current todo list'
+    argument 'task_text'
+    def run
+      Dooby.current_list.add do |t|
+        t.todo = params[:task_text].value
+        t.hold!
+      end
+      
+      puts 'Task added!'
+    end
+  end
   
+  ########################## LIST ################################ 
+  mode 'ilist' do
+    description "Interactive Listing"
+    def run
+      say "input #hashtag, @person, %project, :status or simple text"
+      
+      Dooby.cli_helper.keep_asking "> " do |what_to_show| 
+        puts
+        puts Dooby.current_list.list what_to_show.split(' ')
+        puts
+      end
+    end
+  end
+  
+  mode 'list' do
+    description 'Lists @people, #tags, %projects or tasks (default)'
+
+    argument('what_to_show'){
+      arity -1 # zero or more arguments
+    }
+    
+    def run
+      what_to_show = params[:what_to_show].values
+      list = Dooby.current_list.list what_to_show
+      if list
+        if what_to_show.empty?
+          say 'Showing all items...'.blue_on_white.bold
+        else
+          say 'Showing items containing:'.blue_on_white.bold + ' ' + what_to_show.join(' and '.blue)
+        end
+        puts list
+      else
+        say 'Nothing found'.red_on_white.bold + ' ' + what_to_show.join(' and '.blue)
+      end
+    end
+  end  
+  
+  mode 'l@' do
+    def run
+      handle_tag_lists '@', 'You have not tagged people yet.'
+    end
+  end
+
+  mode 'l#' do
+    def run
+      handle_tag_lists '#', "You don't have any tags yet."
+    end
+  end
+
+  mode 'l%' do
+    def run
+      handle_tag_lists '%', "You don't have any projects yet."
+    end
+  end  
+  
+  def handle_tag_lists(tag, error_message)
+    list = Dooby.current_list.list tag
+    if list
+      puts list
+    else
+      puts error_message
+    end
+  end
+  
+  ########################## DELETE ###############################  
   mode 'flush' do
     description 'Deletes all the tasks'
     def run
@@ -46,44 +127,6 @@ Main {
       end
     end    
   end
-  
-  mode 'add' do
-    description 'Creates a new task and adds it to the current todo list'
-    argument 'task_text'
-    def run
-      Dooby.current_list.add do |t|
-        t.todo = params[:task_text].value
-        t.hold!
-      end
-      
-      puts 'Task added!'
-    end
-  end
-    
-  mode 'ilist' do
-    description "Interactive Listing"
-    def run
-      say "input #hashtag, @person, %project, :status or simple text"
-      
-      Dooby.cli_helper.keep_asking "> " do |what_to_show| 
-        puts
-        puts Dooby.current_list.list what_to_show.split(' ')
-        puts
-      end
-    end
-  end
-  
-  mode 'list' do
-    description 'Lists @people, #tags, %projects or tasks (default)'
-
-    argument('what_to_show'){
-      arity -1 # zero or more arguments
-    }
-    
-    def run
-      puts Dooby.current_list.list params[:what_to_show].values
-    end
-  end  
   
   mode 'delete' do
     def run
@@ -109,6 +152,7 @@ Main {
     end
   end
   
+  ########################## EDIT #################################  
   mode 'edit' do
     def run
       

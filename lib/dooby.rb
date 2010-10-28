@@ -18,6 +18,7 @@ module Dooby
   DEFAULT_STATUS = :hold
   
   AVAILABLE_STATUSES = [:hold, :doing, :done]
+  SPECIAL_TAGS = %w[@ # %]
   
   def self.init
     unless File.exist? CURRENT_TODO_LIST_FILE
