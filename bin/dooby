@@ -10,8 +10,6 @@ require 'dooby'
 
 ORIGINAL_ARGV = ARGV.dup
 
-stty_save = `stty -g`.chomp
-
 Main {
 
    def run
@@ -28,13 +26,11 @@ Main {
   mode 'flush' do
     description 'Deletes all the tasks'
     def run
-      puts "Sure???".red_on_white.bold  + " (yes/no)".red.bold
-      sure = STDIN.gets
-      if sure.chomp == 'yes'
+      if Dooby.cli_helper.flush?
         Dooby.current_list.flush!
-        puts "All the task were deleted!".red.bold
+        say "All the task were deleted!".red.bold
       else
-        puts "Keep doing things!".green.bold
+        say "Keep doing things!".green.bold
       end
     end
   end
@@ -42,9 +38,7 @@ Main {
   mode 'trash' do
     description 'Deletes the .dooby directory'
     def run
-      puts "Sure???".red_on_white.bold  + " (yes/no)".red.bold
-      sure = STDIN.gets
-      if sure.chomp == 'yes'
+      if Dooby.cli_helper.trash?
         Dooby.trash!
         puts "No more dooby here T_T".red.bold
       else
@@ -69,10 +63,11 @@ Main {
   mode 'ilist' do
     description "Interactive Listing"
     def run
-      puts "input #hashtag, @person, %project, :status or simple text"
-      while line = Readline.readline('> ', true)
+      say "input #hashtag, @person, %project, :status or simple text"
+      
+      Dooby.cli_helper.keep_asking "> " do |what_to_show| 
         puts
-        puts Dooby.current_list.list line.split(' ')
+        puts Dooby.current_list.list what_to_show.split(' ')
         puts
       end
     end
@@ -97,53 +92,58 @@ Main {
         exit
       end
       
-      Dooby.readline_helper.completion_list = Dooby.current_list.tasks.keys
+      autocomp = Dooby.current_list.tasks.keys
+      question = 'Tasky ID '.red.bold + '> '
       
-      task_id = ''
-
-      while line = Readline.readline('Task ID '.red.bold + '> ')
-        task_id = line.chomp.strip
+      Dooby.cli_helper.keep_asking question, autocomp  do |task_id|
+         
         if Dooby.current_list.delete! task_id
-          puts task_id + ' deleted...'
+          say task_id + ' deleted...'
           exit
         else
-          puts "Don't try to fool #{'Dooby'.red}, she knows such task doesn't exists"
+          say "Don't try to fool #{'Dooby'.red}, she knows such task doesn't exists"
         end
+        
       end
+      
     end
   end
   
   mode 'edit' do
     def run
-      Dooby.readline_helper.completion_list = Dooby.current_list.tasks.keys
-
-      task_id = ''
       
-      while line = Readline.readline('Task ID '.blue.bold + '> ')
-        task_id = line.chomp.strip
+      autocomp = Dooby.current_list.tasks.keys
+      question = 'Tasky ID '.blue.bold + '> '
+      
+      current_task_id = ''
+      
+      Dooby.cli_helper.keep_asking question, autocomp  do |task_id|
+        current_task_id = task_id 
         if Dooby.current_list.tasks.key? task_id
           todo_to_edit = Dooby.current_list.tasks[task_id].todo
           Readline::HISTORY.push todo_to_edit
-          Dooby.readline_helper.completion_list = [todo_to_edit]
+          autocomp = [todo_to_edit]
           break
         else
           puts "Task doesn't exist".red.bold
           exit
         end
+
       end
     
-      while line = Readline.readline('TAB or up arrow to edit '.blue.bold + '> ')
-        if line
-          Dooby.current_list.edit!(task_id, line.chomp.strip)
+      question = 'TAB or up arrow to edit '.blue.bold + '> '
+
+      Dooby.cli_helper.keep_asking question, autocomp  do |text|
+        if text
+          
+          Dooby.current_list.edit! current_task_id do |t|
+            t.todo = text
+          end
+          
           exit
-        end
+        end                
       end
       
-      
-      rescue Interrupt
-        system("stty", stty_save)
-        exit
-        
     end
   end
 
