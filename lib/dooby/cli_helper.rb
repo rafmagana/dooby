@@ -18,7 +18,7 @@ module Dooby
       
       stty_save = `stty -g`.chomp
       
-      while value = Readline.readline(question)
+      while value = Readline.readline(question, true)
           yield value.chomp.strip
       end      
 

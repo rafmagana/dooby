@@ -29,6 +29,14 @@ module Dooby
       end
     end
     
+    def bulk_delete!(terms)
+      only_tags = terms.only_tags *SPECIAL_TAGS
+      matches = []
+      @tasks.each do |id, task|
+        delete! id if only_tags.all? { |tag| task.todo.include? tag }
+      end
+    end
+    
     def edit!(task_id)
       old_task = @tasks[task_id]
       t = Task.new
@@ -41,6 +49,10 @@ module Dooby
       
       delete! task_id
       add t
+    end
+    
+    def tasks?
+      !@tasks.empty?
     end
     
     def tasks
@@ -78,6 +90,14 @@ module Dooby
       list
     end
 
+    def all_tags
+      tags = []
+      @tasks.each do |id, task|
+        tags << task.todo.only_tags(*SPECIAL_TAGS)
+      end
+      tags.flatten
+    end
+    
     private
     def save!
       File.open( @location, 'w' ) do |f|

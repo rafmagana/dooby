@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
      "lib/dooby.rb",
      "lib/dooby/base.rb",
      "lib/dooby/cli_helper.rb",
+     "lib/dooby/core_ext.rb",
      "lib/dooby/exceptions.rb",
      "lib/dooby/formatter.rb",
      "lib/dooby/list.rb",

@@ -130,7 +130,7 @@ Main {
   
   mode 'delete' do
     def run
-      if Dooby.current_list.tasks.empty?
+      unless Dooby.current_list.tasks?
         puts 'No tasks to delete'.red
         exit
       end
@@ -151,6 +151,28 @@ Main {
       
     end
   end
+  
+  mode 'bulkdelete' do
+    description "Deletes all the tasks that contains the specified tags.\n $ dooby bulkdelete %mypage @jim \n It will only delete by tag, not by plain text"
+    def run
+      
+      unless Dooby.current_list.tasks?
+        puts 'No tasks to delete'.red
+        exit
+      end
+      
+      autocomp = Dooby.current_list.all_tags
+      question = "What do you want to bulk delete? (#{Dooby::SPECIAL_TAGS.join(', ')} allowed) \n> "
+          
+      Dooby.cli_helper.keep_asking question, autocomp do |tags|
+        unless tags.empty?
+          Dooby.current_list.bulk_delete! tags
+          exit
+        end
+      end
+    end
+  end
+  
   
   ########################## EDIT #################################  
   mode 'edit' do

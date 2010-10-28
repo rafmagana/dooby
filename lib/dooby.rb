@@ -3,6 +3,7 @@ $:.unshift(File.dirname(__FILE__))
 %w[fileutils digest/sha1 colored readline highline/import].each { |f| require "#{f}" }
 
 %w[exceptions
+   core_ext
    base
    list
    formatter
