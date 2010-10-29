@@ -36,7 +36,7 @@ module Dooby
         delete! id if only_tags.all? { |tag| task.todo.include? tag }
       end
     end
-    
+
     def edit!(task_id)
       old_task = @tasks[task_id]
       t = Task.new
@@ -44,7 +44,6 @@ module Dooby
         yield t
       end
       
-      t.priority = old_task.priority
       t.status  = old_task.status
       
       delete! task_id
@@ -70,7 +69,7 @@ module Dooby
           @tasks.each do |id, task|
             list << " (#{id.red})  #{task.colorize}"
           end
-        when *SPECIAL_TAGS then 
+        when *SPECIAL_TAGS then
           @tasks.each do |id, task|
             task.todo.gsub(/(#{what_to_show}\w+)/).each do |tag|
               list << tag.blue unless list.include? tag.blue

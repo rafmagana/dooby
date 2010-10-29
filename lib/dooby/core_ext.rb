@@ -14,8 +14,4 @@ class String
   def only_tags(*wanted_tags)
     split(' ').only_tags(*wanted_tags)
   end
-  
-  def include_tags?(tags = nil)
-    
-  end
 end

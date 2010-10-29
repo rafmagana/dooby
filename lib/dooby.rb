@@ -15,7 +15,6 @@ module Dooby
   DOOBY_DIR = '.dooby'
   CURRENT_TODO_LIST_FILE = "#{DOOBY_DIR}/list.yml"
   
-  DEFAULT_PRIORITY = 5
   DEFAULT_STATUS = :hold
   
   AVAILABLE_STATUSES = [:hold, :doing, :done]

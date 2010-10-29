@@ -7,7 +7,6 @@ module Dooby
     def initialize
       @todo ||= nil
       @status ||= DEFAULT_STATUS
-      @priority ||= DEFAULT_PRIORITY
     end
     
     def id
@@ -29,7 +28,7 @@ module Dooby
     def hold!
       @status = :hold
     end
-    
+
     def colorize
       colorized_todo = @todo.dup
       
