@@ -25,7 +25,7 @@ module Dooby
       rescue Interrupt
         system("stty", stty_save)
         exit
-
     end
+    
   end
 end

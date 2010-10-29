@@ -19,6 +19,7 @@ module Dooby
   
   AVAILABLE_STATUSES = [:hold, :doing, :done]
   SPECIAL_TAGS = %w[@ # %]
+  SPLITTABLE_TAGS = %w[#today #urgent]
   
   def self.init
     unless File.exist? CURRENT_TODO_LIST_FILE

@@ -7,7 +7,24 @@ class Array
     wanted_tags = '#' if wanted_tags.empty?
     tags = self.grep(/[#{wanted_tags}]/)
     tags.flatten
-  end  
+  end
+  
+  def tasks_by_tag(*tags)
+    tasks = []
+    items = self.dup
+    tags.each do |tag|
+      matches = items.grep(/#{tag}/)
+      items = items - matches
+      unless matches.empty?
+        separator = "\n==================== #{tag[1..-1].upcase} ====================".white_on_red
+        tasks << separator unless tasks.include? separator
+        tasks << matches
+      end
+    end
+    tasks.unshift items
+    tasks.flatten
+  end
+
 end
 
 class String

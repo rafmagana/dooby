@@ -54,7 +54,7 @@ Main {
       
       Dooby.cli_helper.keep_asking "> " do |what_to_show| 
         puts
-        puts Dooby.current_list.list what_to_show.split(' ')
+        puts Dooby.current_list.list(what_to_show.split(' ')).tasks_by_tag(*Dooby::SPLITTABLE_TAGS)
         puts
       end
     end
@@ -69,7 +69,7 @@ Main {
     
     def run
       what_to_show = params[:what_to_show].values
-      list = Dooby.current_list.list what_to_show
+      list = Dooby.current_list.list(what_to_show).tasks_by_tag(*Dooby::SPLITTABLE_TAGS)
       if list
         if what_to_show.empty?
           say 'Showing all items...'.blue_on_white.bold
