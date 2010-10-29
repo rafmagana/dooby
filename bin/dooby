@@ -169,7 +169,7 @@ Main {
       end
       
       autocomp = Dooby.current_list.all_tags
-      question = "What do you want to bulk delete? (#{Dooby::SPECIAL_TAGS.join(', ')} allowed) \n> "
+      question = "What do you want to bulk delete? (#{Dooby::SPECIAL_CHARS.join(', ')} allowed) \n> "
           
       Dooby.cli_helper.keep_asking question, autocomp do |tags|
         unless tags.empty?

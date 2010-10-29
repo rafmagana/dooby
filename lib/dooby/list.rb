@@ -30,7 +30,7 @@ module Dooby
     end
     
     def bulk_delete!(terms)
-      only_tags = terms.only_tags *SPECIAL_TAGS
+      only_tags = terms.only_tags *SPECIAL_CHARS
       matches = []
       @tasks.each do |id, task|
         delete! id if only_tags.all? { |tag| task.todo.include? tag }
@@ -69,7 +69,7 @@ module Dooby
           @tasks.each do |id, task|
             list << TASK_ROW_TEMPLATE.call(task)
           end
-        when *SPECIAL_TAGS then
+        when *SPECIAL_CHARS then
           @tasks.each do |id, task|
             task.todo.gsub(/(#{what_to_show}\w+)/).each do |tag|
               list << tag.blue unless list.include? tag.blue
@@ -92,7 +92,7 @@ module Dooby
     def all_tags
       tags = []
       @tasks.each do |id, task|
-        tags << task.todo.only_tags(*SPECIAL_TAGS)
+        tags << task.todo.only_tags(*SPECIAL_CHARS)
       end
       tags.flatten
     end

@@ -18,7 +18,7 @@ module Dooby
   DEFAULT_STATUS = :hold
   
   AVAILABLE_STATUSES = [:hold, :doing, :done]
-  SPECIAL_TAGS = %w[@ # %]
+  SPECIAL_CHARS = %w[@ # %]
   SPLITTABLE_TAGS = %w[#today #urgent]
   
   TASK_ROW_TEMPLATE = lambda do |task|
