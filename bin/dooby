@@ -14,7 +14,14 @@ Main {
 
    ########################## DEFAULT #############################
    def run
-     puts Dooby.current_list.list
+     list = Dooby.current_list.list
+     if list
+       say 'Showing all items...'.blue_on_white.bold
+       puts list
+     else
+       say 'Nothing found'.red_on_white.bold
+     end
+     
    end
    
   ########################## INIT #################################  
