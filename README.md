@@ -16,32 +16,49 @@ I spend a lot of time in the terminal and I didn't really like any of the curren
 How does Dooby works?
 ---------------------
 
+### A bunch of lists
 Dooby is directory-based, so you can maintain different to-do/notes lists in every directory you want.
 
-For instance, I use one to-do list per project, that way I don't have all the tasks in one place. So if I want to check my tasks for the project MySite I just cd to the directory and start using Dooby. That's it.
+For instance, I use one to-do list per project, that way I don't have all the tasks in one place so I can get focused in just one set of tasks, in one context.
 
-Usage
------
+### Priorities
+Dooby doesn't like to handle priorities, that's your concern. The main goal of Dooby is to help me to handle my today/tomorrow tasks and to handle my personal notes.
 
-### Special characters
+### Due dates
+Due dates for today/tomorrow tasks? well, maybe later.
 
-Dooby uses some characters to visually help us to differentiate between things
+### #tag #tag and #tag again and tell @jim to #tag everything in his %life as well
 
-**@ => person**   (@peter, @john)  
+Dooby uses some special characters to visually help us to differentiate between things and let us search tasks very easily, the ones that you might recognize are **@** and **#**, I stole the idea from Twitter, but of course they don't behave as in Twitter, the **@** sign is not an username but a character to simply tag a person, that's all, nothing else (so far).
 
-**# => tag** 	  (#today, #tomorrow, #urgent, #work)  
+People
 
-**% => project**  (%website, %store)  
+	@peter, @john, @jim
 
-**: => status**   (:hold, :doing, :done)  
+Contexts (states of mind, mood, places, etc)
+	
+	#today, #tomorrow, #urgent
+	
+	#work, #home
+	
+	#thinking, #sad
 
-**^ => priority** (^1, ^2, ^3)  
+Projects
 
-Most of the characters doesn't have any meaning, only some of them like:
+	%website, %shoppinglist, %whatever
+
+Most of these characters are meaningless to Dooby, she (yes, she's a woman) isn't aware of them, Dooby is aware only of some of them:
 
 	#today
 	#urgent
 	#tomorrow
+
+All the tasks tagged with *#today* and *#urgent* will be shown in a special section every time you list your to-dos/notes.
+
+All the tasks tagged with *#tomorrow* will be marked with the tag *#today* at the next day.
+
+Usage
+-----
 
 ###Creating an alias
 
@@ -65,6 +82,10 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 
 	$ d l today
 	
+	$ d l \#today
+	
+	$ d l "#today"
+	
 	$ d l %website
 	
 	$ d l @
@@ -80,7 +101,7 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	> #today
 	Showing items containing: #today
 	 (b954bf)  #fix the email error in %website, talk to @peter #today
-	 (9cfbf4)  Need to go to the #doctor #today
+	 (9cfbf4)  Need to go to the #doctor @hendrix #today
 	
 	> #doctor
 	Showing items containing: #doctor
@@ -91,6 +112,24 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	(b954bf)  #fix the email error in %website, talk to @peter #today
 
 **Note:** Dooby uses SHA1 as Task ID.
+
+#### Listing all the hashtags you have used
+
+	$ d l#
+	#today
+	#doctor
+	#fix
+	
+#### Listing all the people you have tagged
+	
+	$ d l@
+	@peter
+	@hendrix
+
+#### Listing all the projects you have tagged
+
+	$ d l%
+	%website
 
 ### Editing items
 
@@ -149,6 +188,27 @@ or
 	$ d l
 	Showing all items...
 	 (521a3d)  #fix the email error in %website #today
+
+### Bulk delete
+
+If you want to delete all the tasks containing a tag or set of tags this is what bulk delete is useful for. This feature will delete only by tag, not simple text, actually if you enter simple text it will simply ignore it.
+
+Bulk delete supports auto-completion too. Say you want to delete all the tasks containing @hendrix AND #today.
+
+	$ d bulkdelete
+
+or
+	
+	$ d b
+	What do you want to bulk delete? (@, #, % allowed)
+	_ #TAB TAB
+	#today #doctor
+
+	$ d b
+	What do you want to bulk delete? (@, #, % allowed)
+	#today @hendrix
+
+That's it
 
 ### Deleting all the items
 	
