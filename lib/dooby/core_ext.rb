@@ -10,19 +10,23 @@ class Array
   end
   
   def tasks_by_tag(*tags)
-    tasks = []
-    items = self.dup
-    tags.each do |tag|
-      matches = items.grep(/#{tag}/)
-      items = items - matches
-      unless matches.empty?
-        separator = "\n==================== #{tag[1..-1].upcase} ====================".white_on_red
-        tasks << separator unless tasks.include? separator
-        tasks << matches
+    unless self.empty?
+      tasks = []
+      items = self.dup
+      tags.each do |tag|
+        matches = items.grep(/#{tag}/)
+        items = items - matches
+        unless matches.empty?
+          separator = "\n==================== #{tag[1..-1].upcase} ====================".white_on_red
+          tasks << separator unless tasks.include? separator
+          tasks << matches
+        end
       end
+      tasks.unshift items
+      tasks.flatten
+    else
+      nil
     end
-    tasks.unshift items
-    tasks.flatten
   end
 
 end
@@ -30,5 +34,11 @@ end
 class String
   def only_tags(*wanted_tags)
     split(' ').only_tags(*wanted_tags)
+  end
+end
+
+class NilClass
+  def tasks_by_tag(*tags)
+    nil
   end
 end
