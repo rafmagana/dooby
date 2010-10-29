@@ -253,7 +253,11 @@ You can check the help out using the -h flag
 	PARAMETERS
 	  what_to_show (-1 ~> what_to_show) 
 	  --help, -h 
-	
+
+Known bugs
+----------
+
+* Auto-completion doesn't work with at signs (@)
 
 Special Thanks
 --------------
@@ -266,7 +270,9 @@ Most of the the ideas to code **dooby** were based on the work of other programm
 
 Thanks all of you!
 
-== Note on Patches/Pull Requests
+
+Note on Patches/Pull Requests
+-----------------------------
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -276,6 +282,7 @@ Thanks all of you!
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+Copyright
+---------
 
 Copyright (c) 2010 Rafael Magana. See LICENSE for details.
