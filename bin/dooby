@@ -14,7 +14,7 @@ Main {
 
    ########################## DEFAULT #############################
    def run
-     list = Dooby.current_list.list
+     list = Dooby.current_list.list.tasks_by_tag(*Dooby::SPLITTABLE_TAGS)
      if list
        say 'Showing all items...'.blue_on_white.bold
        puts list
