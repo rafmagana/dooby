@@ -67,7 +67,7 @@ module Dooby
         case what_to_show
         when [] then
           @tasks.each do |id, task|
-            list << " (#{id.red})  #{task.colorize}"
+            list << TASK_ROW_TEMPLATE.call(task)
           end
         when *SPECIAL_TAGS then
           @tasks.each do |id, task|
@@ -78,7 +78,7 @@ module Dooby
         else
           @tasks.each do |id, task|
             if what_to_show.all? { |term| task.todo.include? term }
-              list << " (#{id.red})  #{task.colorize}"
+              list << TASK_ROW_TEMPLATE.call(task)
             end
           end
           

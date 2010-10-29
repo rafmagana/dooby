@@ -21,6 +21,10 @@ module Dooby
   SPECIAL_TAGS = %w[@ # %]
   SPLITTABLE_TAGS = %w[#today #urgent]
   
+  TASK_ROW_TEMPLATE = lambda do |task|
+    " (#{task.id.red})  #{task.colorize}"
+  end
+    
   def self.init
     unless File.exist? CURRENT_TODO_LIST_FILE
       FileUtils.mkdir DOOBY_DIR

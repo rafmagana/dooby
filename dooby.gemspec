@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rafael Maga\303\261a"]
-  s.date = %q{2010-10-28}
+  s.date = %q{2010-10-29}
   s.default_executable = %q{dooby}
   s.description = %q{With Dooby you can handle your to-do list or your notes in a simple way and through the command-line.}
   s.email = %q{raf.magana@gmail.com}
