@@ -35,6 +35,10 @@ class String
   def only_tags(*wanted_tags)
     split(' ').only_tags(*wanted_tags)
   end
+  
+  def first_char
+    self[0, 1]
+  end
 end
 
 class NilClass
