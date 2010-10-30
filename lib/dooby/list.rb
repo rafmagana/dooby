@@ -58,7 +58,7 @@ module Dooby
       @tasks.dup
     end
     
-    def list (what_to_show=[])
+    def find (what_to_show=[])
       list = []
       
       if @tasks.empty?
