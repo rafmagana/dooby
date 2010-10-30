@@ -19,7 +19,7 @@ module Dooby
   
   AVAILABLE_STATUSES = [:hold, :doing, :done]
   
-  SPECIAL_CHAR_COLORS = Hash['@', :blue, '#', :yellow, '%', :white]
+  SPECIAL_CHAR_COLORS = Hash['@', :blue, '#', :yellow, '%', :white, ':', :magenta]
   SPECIAL_CHARS = SPECIAL_CHAR_COLORS.keys 
   
   SPLITTABLE_TAGS = %w[#today #urgent]
