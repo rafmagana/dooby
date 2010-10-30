@@ -60,12 +60,14 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<main>, [">= 4.2.0"])
       s.add_runtime_dependency(%q<colored>, [">= 1.2"])
       s.add_runtime_dependency(%q<highline>, [">= 1.6.1"])
+      s.add_runtime_dependency(%q<chronic>, [">= 0.3.0"])
     else
       s.add_dependency(%q<shoulda>, [">= 2.11.3"])
       s.add_dependency(%q<mocha>, [">= 0.9.8"])
       s.add_dependency(%q<main>, [">= 4.2.0"])
       s.add_dependency(%q<colored>, [">= 1.2"])
       s.add_dependency(%q<highline>, [">= 1.6.1"])
+      s.add_dependency(%q<chronic>, [">= 0.3.0"])
     end
   else
     s.add_dependency(%q<shoulda>, [">= 2.11.3"])
@@ -73,6 +75,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<main>, [">= 4.2.0"])
     s.add_dependency(%q<colored>, [">= 1.2"])
     s.add_dependency(%q<highline>, [">= 1.6.1"])
+    s.add_dependency(%q<chronic>, [">= 0.3.0"])
   end
 end
 

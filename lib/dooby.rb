@@ -1,6 +1,6 @@
 $:.unshift(File.dirname(__FILE__)) 
 
-%w[fileutils digest/sha1 colored readline highline/import].each { |f| require "#{f}" }
+%w[fileutils digest/sha1 colored readline highline/import chronic].each { |f| require "#{f}" }
 
 %w[exceptions
    core_ext

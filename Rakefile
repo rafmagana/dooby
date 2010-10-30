@@ -16,6 +16,7 @@ begin
     gem.add_runtime_dependency('main', ">= 4.2.0")
     gem.add_runtime_dependency('colored', ">= 1.2")
     gem.add_runtime_dependency('highline', ">= 1.6.1")
+    gem.add_runtime_dependency('chronic', ">= 0.3.0")
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
