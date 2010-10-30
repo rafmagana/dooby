@@ -60,7 +60,7 @@ module Dooby
     
     def find (what_to_show=[])
       list = []
-      
+
       if @tasks.empty?
         list = nil
       else
@@ -72,7 +72,9 @@ module Dooby
         when *SPECIAL_CHARS then
           @tasks.each do |id, task|
             task.todo.gsub(/(#{what_to_show}\w+)/).each do |tag|
-              list << tag.blue unless list.include? tag.blue
+              color = SPECIAL_CHAR_COLORS[tag.first_char]
+              colorized = tag.send color
+              list << colorized unless list.include? colorized
             end
           end
         else
