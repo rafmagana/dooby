@@ -94,7 +94,7 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	$ d l %
 	 > shows all the tasks with a related project
 	
-#### Listing items interactively 
+#### Listing items interactively (use q or ctrl-c to interrupt)
 	
 	$ d il
 	
@@ -131,7 +131,7 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	$ d l%
 	%website
 
-### Editing items
+### Editing items (use q or ctrl-c to interrupt)
 
 **Dooby** supports autocompletion of task IDs in the *delete* and the *edit* commands, to fire it just do the same as in a bash shell, press TAB TAB.
 
@@ -167,7 +167,7 @@ now press Enter and TAB TAB again if you want the original text of the item:
 	
 Edit it and press Enter and the task will be saved.
 
-### Deleting items
+### Deleting items (use q or ctrl-c to interrupt)
 
 	$ d delete
 	
