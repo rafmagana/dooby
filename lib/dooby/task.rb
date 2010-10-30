@@ -32,14 +32,12 @@ module Dooby
     def colorize
       colorized_todo = @todo.dup
       
-      colorized_todo.gsub(/(#\w+)|(@\w+)|(%\w+)/).each do |todo|
-        if todo.include? "@"
-          todo.blue
-        elsif todo.include? "%"
-          todo.white
-        else
-          todo.yellow
-        end
+      string_pattern = SPECIAL_CHARS.collect { |c| "(#{c}\\w+)" }
+      pattern = Regexp.new(string_pattern.join("|"))
+      
+      colorized_todo.gsub(pattern).each do |todo|
+        color = SPECIAL_CHAR_COLORS[todo.first_char]
+        todo.send color
       end
       
     end

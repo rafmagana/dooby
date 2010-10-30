@@ -18,7 +18,10 @@ module Dooby
   DEFAULT_STATUS = :hold
   
   AVAILABLE_STATUSES = [:hold, :doing, :done]
-  SPECIAL_CHARS = %w[@ # %]
+  
+  SPECIAL_CHAR_COLORS = Hash['@', :blue, '#', :yellow, '%', :white]
+  SPECIAL_CHARS = SPECIAL_CHAR_COLORS.keys 
+  
   SPLITTABLE_TAGS = %w[#today #urgent]
   
   TASK_ROW_TEMPLATE = lambda do |task|
