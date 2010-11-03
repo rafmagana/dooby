@@ -1,8 +1,10 @@
 module Dooby
   class Task
     include Formateable
+    extend StatusGenerator
     
     attr_accessor :todo, :priority, :status
+    statuses *AVAILABLE_STATUSES
     
     def initialize
       @todo ||= nil
