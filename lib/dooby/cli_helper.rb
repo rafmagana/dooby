@@ -13,6 +13,8 @@ module Dooby
     end
     
     def self.keep_asking(question, autocompletion = [])
+      Readline.basic_word_break_characters = 
+          Readline.basic_word_break_characters.delete("@")
       Readline.completion_append_character = " "
       Readline.completion_proc = proc { |s| autocompletion.grep( /^#{Regexp.escape(s)}/ ) }
       
