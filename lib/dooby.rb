@@ -1,36 +1,25 @@
 $:.unshift(File.dirname(__FILE__)) 
 
-%w[fileutils digest/sha1 colored readline highline/import chronic].each { |f| require "#{f}" }
+#dependencies
+%w[fileutils 
+   digest/sha1
+   colored
+   readline
+   highline/import
+   chronic].each { |f| require "#{f}" }
 
-%w[exceptions
+#dooby
+%w[config
+   exceptions
    core_ext
    base
    list
    formatter
+   status_generator
    task
    cli_helper].each { |f| require "dooby/#{f}" }
    
-module Dooby
-  
-  DOOBY_DIR = '.dooby'
-  CURRENT_TODO_LIST_FILE = "#{DOOBY_DIR}/list.yml"
-  
-  DEFAULT_STATUS = :hold
-  
-  AVAILABLE_STATUSES = [:hold, :doing, :done]
-  
-  SPECIAL_CHAR_COLORS = Hash['@', :blue, '#', :yellow, '%', :white, ':', :magenta]
-  SPECIAL_CHARS = SPECIAL_CHAR_COLORS.keys 
-  
-  SPLITTABLE_TAGS = %w[#today #urgent]
-  TOMORROW_TAG = "#tomorrow"
-  
-  DATE_FORMAT = '%b/%d/%Y'
-  
-  TASK_ROW_TEMPLATE = lambda do |task|
-    " (#{task.id.red})  #{task.colorize}"
-  end
-    
+module Dooby    
   def self.init
     unless File.exist? CURRENT_TODO_LIST_FILE
       FileUtils.mkdir DOOBY_DIR
