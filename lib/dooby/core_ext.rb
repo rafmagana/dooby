@@ -1,3 +1,13 @@
+class Object
+  def blank?
+    respond_to?(:empty?) ? empty? : !self
+  end
+
+  def present?
+    !blank?
+  end
+end
+
 class Array
   def only_tags!(*wanted_tags)
     replace(only_tags(wanted_tags))
