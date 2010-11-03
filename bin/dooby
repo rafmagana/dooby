@@ -50,9 +50,10 @@ Main {
   mode 'ilist' do
     description "Interactive Listing"
     def run
+      autocomp = Dooby.current_list.all_tags
       say "input #hashtag, @person, %project, :status or simple text"
       
-      Dooby.cli_helper.keep_asking "> " do |what_to_show| 
+      Dooby.cli_helper.keep_asking "> ", autocomp do |what_to_show| 
         puts
         puts Dooby.current_list.find(what_to_show.split(' ')).tasks_by_tag(*Dooby::SPLITTABLE_TAGS)
         puts
