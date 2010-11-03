@@ -16,19 +16,7 @@ module Dooby
     def valid?      
       @todo.nil? || @todo == '' ? false : true
     end
-    
-    def doing!
-      @status = :doing
-    end
-    
-    def done!
-      @status = :done
-    end
-    
-    def hold!
-      @status = :hold
-    end
-
+        
     def colorize
       colorized_todo = @todo.dup
       
@@ -40,8 +28,6 @@ module Dooby
         todo.send color
       end
       
-    end
-    
+    end    
   end
-  
 end
