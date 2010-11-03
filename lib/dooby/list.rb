@@ -94,6 +94,11 @@ module Dooby
             end
           end
         else
+          if what_to_show.any? { |s| s.include? tomorrow }
+            what_to_show << tomorrows_date
+            what_to_show.delete(tomorrow)
+            what_to_show.delete(TOMORROW_TAG)
+          end
           @tasks.each do |id, task|
             if what_to_show.all? { |term| task.todo.include? term }
               list << TASK_ROW_TEMPLATE.call(task)
@@ -114,13 +119,12 @@ module Dooby
       end
       tags.flatten
     end
-    
+        
     private
     def handle_tomorrow_tag(task)
       if task.todo.include? TOMORROW_TAG
         task.todo.gsub!(/\{[\w\/]+\}/, '')
-        tomorrow_date = Chronic.parse(TOMORROW_TAG[1..-1]).strftime(DATE_FORMAT)
-        task.todo.gsub!(TOMORROW_TAG, "{#{tomorrow_date}}")
+        task.todo.gsub!(TOMORROW_TAG, "{#{tomorrows_date}}")
         task.todo.gsub!(/#{TOMORROW_TAG}/, '')
       end
       task
@@ -146,6 +150,14 @@ module Dooby
       end
     end
 
+    def tomorrow
+      TOMORROW_TAG[1..-1]
+    end
+    
+    def tomorrows_date
+      Chronic.parse(tomorrow).strftime(DATE_FORMAT)
+    end
+    
   end
   
 end
