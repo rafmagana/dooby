@@ -39,7 +39,6 @@ Main {
     def run
       Dooby.current_list.add do |t|
         t.todo = params[:task_text].value
-        t.hold!
       end
       
       puts 'Task added!'

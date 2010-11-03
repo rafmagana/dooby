@@ -3,12 +3,11 @@ module Dooby
     include Formateable
     extend StatusGenerator
     
-    attr_accessor :todo, :priority, :status
+    attr_accessor :todo, :priority
     statuses *AVAILABLE_STATUSES
     
     def initialize
       @todo ||= nil
-      @status ||= DEFAULT_STATUS
     end
     
     def id

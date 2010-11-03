@@ -44,9 +44,6 @@ module Dooby
       if old_task
         yield t
       end
-      
-      t.status  = old_task.status
-      
       delete! task_id
       add t
     end
