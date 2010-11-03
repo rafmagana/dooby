@@ -144,7 +144,7 @@ Main {
       end
       
       autocomp = Dooby.current_list.tasks.keys
-      question = 'Tasky ID '.red.bold + '> '
+      question = 'Task ID '.red.bold + '> '
       
       Dooby.cli_helper.keep_asking question, autocomp  do |task_id|
          
@@ -187,7 +187,7 @@ Main {
     def run
       
       autocomp = Dooby.current_list.tasks.keys
-      question = 'Tasky ID '.blue.bold + '> '
+      question = 'Task ID '.blue.bold + '> '
       
       current_task_id = ''
       
