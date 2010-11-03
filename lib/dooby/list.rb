@@ -17,6 +17,7 @@ module Dooby
     
     def add(task = Task.new)
       yield task if block_given?
+      task = handle_tomorrow_tag task      
       @tasks[task.id] = task
       save!
     end
@@ -66,9 +67,27 @@ module Dooby
       else
         case what_to_show
         when [] then
+          to_delete = []
+          to_add = []
           @tasks.each do |id, task|
+            today_date = Time.now.strftime(DATE_FORMAT)
+            date_tag = "{#{today_date}}"
+            if task.todo.include? date_tag
+              task_with_today_tag = task.dup
+              task_with_today_tag.todo.gsub!(date_tag, "#today")
+              to_add << task_with_today_tag
+              to_delete << id
+            else
+              list << TASK_ROW_TEMPLATE.call(task)
+            end
+          end
+          
+          to_delete.each { |task_id| delete!(task_id) }
+          to_add.each do |task|
+            add task
             list << TASK_ROW_TEMPLATE.call(task)
           end
+          
         when *SPECIAL_CHARS then
           @tasks.each do |id, task|
             task.todo.gsub(/(#{what_to_show}\w+)/).each do |tag|
@@ -100,6 +119,16 @@ module Dooby
     end
     
     private
+    def handle_tomorrow_tag(task)
+      if task.todo.include? TOMORROW_TAG
+        task.todo.gsub!(/\{[\w\/]+\}/, '')
+        tomorrow_date = Chronic.parse(TOMORROW_TAG[1..-1]).strftime(DATE_FORMAT)
+        task.todo.gsub!(TOMORROW_TAG, "{#{tomorrow_date}}")
+        task.todo.gsub!(/#{TOMORROW_TAG}/, '')
+      end
+      task
+    end
+    
     def save!
       File.open( @location, 'w' ) do |f|
         f << @tasks.to_yaml
