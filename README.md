@@ -257,7 +257,7 @@ You can check the help out using the -h flag
 Known bugs
 ----------
 
-* Auto-completion doesn't work with at signs (@)
+* In Windows the text is shown with the color codes even installing the *win32console* gem
 
 Special Thanks
 --------------
@@ -269,7 +269,6 @@ Most of the the ideas to code **dooby** were based on the work of other programm
 **Scott Chacon** ([http://github.com/schacon/ticgit](http://github.com/schacon/ticgit))
 
 Thanks all of you!
-
 
 Note on Patches/Pull Requests
 -----------------------------
