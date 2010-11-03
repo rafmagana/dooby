@@ -12,7 +12,7 @@ module Dooby
       agree TRASH, true
     end
     
-    def self.keep_asking(question, autocompletion = nil)
+    def self.keep_asking(question, autocompletion = [])
       Readline.completion_append_character = " "
       Readline.completion_proc = proc { |s| autocompletion.grep( /^#{Regexp.escape(s)}/ ) }
       
