@@ -1,8 +1,10 @@
 module Dooby
   
   class List
-  
+
     attr_reader :location
+    
+    include DatesHelper
 
     def initialize(location)
       @location = location
@@ -17,7 +19,7 @@ module Dooby
     
     def add(task = Task.new)
       yield task if block_given?
-      task = handle_tomorrow_tag task      
+      task = handle_tomorrow_tag task     
       @tasks[task.id] = task
       save!
     end
@@ -67,11 +69,11 @@ module Dooby
           to_delete = []
           to_add = []
           @tasks.each do |id, task|
-            today_date = Time.now.strftime(DATE_FORMAT)
-            date_tag = "{#{today_date}}"
-            if task.todo.include? date_tag
+            
+            #if item has {today's date} replace it with #today
+            if task.todo.include? todays_date_tag
               task_with_today_tag = task.dup
-              task_with_today_tag.todo.gsub!(date_tag, "#today")
+              task_with_today_tag.todo.gsub!(todays_date_tag, TODAY_TAG)
               to_add << task_with_today_tag
               to_delete << id
             else
@@ -93,7 +95,7 @@ module Dooby
               list << colorized unless list.include? colorized
             end
           end
-        else
+        else #user has enter search terms
           if what_to_show.any? { |s| s.include? tomorrow }
             what_to_show << tomorrows_date
             what_to_show.delete(tomorrow)
@@ -155,14 +157,6 @@ module Dooby
       rescue Exceptions::NoYAMLFileFound
         puts "Todo list file is invalid or do not exist."
       end
-    end
-
-    def tomorrow
-      TOMORROW_TAG[1..-1]
-    end
-    
-    def tomorrows_date
-      Chronic.parse(tomorrow).strftime(DATE_FORMAT)
     end
     
   end

@@ -1,6 +1,5 @@
 module Dooby
   class Task
-    include Formateable
     extend StatusGenerator
     
     attr_accessor :todo, :priority

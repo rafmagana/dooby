@@ -14,6 +14,7 @@ $:.unshift(File.dirname(__FILE__))
    exceptions
    core_ext
    base
+   dates_helper
    list
    status_generator
    task
