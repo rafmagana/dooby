@@ -6,7 +6,8 @@ $:.unshift(File.dirname(__FILE__))
    colored
    readline
    highline/import
-   chronic].each { |f| require "#{f}" }
+   chronic
+   ruby-debug].each { |f| require "#{f}" }
 
 #dooby
 %w[config
@@ -14,7 +15,6 @@ $:.unshift(File.dirname(__FILE__))
    core_ext
    base
    list
-   formatter
    status_generator
    task
    cli_helper].each { |f| require "dooby/#{f}" }
