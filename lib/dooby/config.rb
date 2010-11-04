@@ -12,6 +12,8 @@ module Dooby
   
   DATE_FORMAT = '%b/%d/%Y'
   
+  CURRENT_ITEM_TAG = ':doing'
+  
   TASK_ROW_TEMPLATE = lambda do |task|
     " (#{task.id.red})  #{task.colorize}"
   end

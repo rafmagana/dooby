@@ -219,5 +219,21 @@ Main {
       
     end
   end
-
+  
+  ########################## GIT #################################  
+  mode 'commit' do
+    current_item = Dooby.current_list.current_item
+    if current_item
+      result = %x[git commit -m "#{current_item}"]
+      if result.include? current_item
+        puts "The commit message was #{current_item.yellow}".blue
+      else
+        puts 'Nothing added to commit'.red if result.include? 'added to commit'
+      end
+      exit
+    else
+      puts "First you have to tag an item with #{Dooby::CURRENT_ITEM_TAG.magenta}".red
+      exit
+    end
+  end
 }
