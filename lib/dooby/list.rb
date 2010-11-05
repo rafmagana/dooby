@@ -22,6 +22,7 @@ module Dooby
       task = handle_tomorrow_tag task     
       @tasks[task.id] = task
       save!
+      task
     end
 
     def delete!(task_id)
@@ -42,12 +43,12 @@ module Dooby
 
     def edit!(task_id)
       old_task = @tasks[task_id]
-      t = Task.new
       if old_task
+        t = Task.new
         yield t
+        delete! task_id
+        add t
       end
-      delete! task_id
-      add t
     end
     
     def tasks?
