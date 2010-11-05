@@ -5,15 +5,15 @@ module Dooby
     attr_accessor :todo, :priority
     statuses *AVAILABLE_STATUSES
     
-    def initialize
-      @todo ||= nil
+    def initialize (todo = nil)
+      @todo = todo
     end
     
     def id
       @todo ? Digest::SHA1.hexdigest(@todo)[0,6] : nil
     end
     
-    def valid?      
+    def valid?
       @todo.nil? || @todo == '' ? false : true
     end
         
