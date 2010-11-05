@@ -47,6 +47,7 @@ module Dooby
           list.stub(:save!).and_return true
           task = Task.new fake_todo_text
         
+          list.should_receive(:save!).and_return true
           list.add task
         
           list.tasks.should_not be_empty
