@@ -44,7 +44,7 @@ module Dooby
           YAML.stub(:load_file).and_return {}
         
           list = List.new @location
-          @list.stub(:save!).and_return true
+          list.stub(:save!).and_return true
           task = Task.new fake_todo_text
         
           list.add task
