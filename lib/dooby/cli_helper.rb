@@ -1,7 +1,7 @@
 module Dooby
   class CLIHelper
     
-    DEL_TASKS = "Sure you want to delete all the taks???".red_on_white.bold
+    DEL_TASKS = "Sure you want to delete all the items???".red_on_white.bold
     TRASH = "Sure you want to delete the .dooby directory???".red_on_white.bold
     
     def self.flush?

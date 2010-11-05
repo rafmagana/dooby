@@ -34,14 +34,14 @@ Main {
     
   ########################## ADD #################################  
   mode 'add' do
-    description 'Creates a new task and adds it to the current todo list'
+    description 'Creates a new item and adds it to the current todo list'
     argument 'task_text'
     def run
       Dooby.current_list.add do |t|
         t.todo = params[:task_text].value
       end
       
-      puts 'Task added!'
+      puts 'Item added!'
     end
   end
   
@@ -61,7 +61,7 @@ Main {
   end
   
   mode 'list' do
-    description 'Lists @people, #tags, %projects or tasks (default)'
+    description 'Lists @people, #tags, %projects or items (default)'
 
     argument('what_to_show'){
       arity -1 # zero or more arguments
@@ -112,11 +112,11 @@ Main {
   
   ########################## DELETE ###############################  
   mode 'flush' do
-    description 'Deletes all the tasks'
+    description 'Deletes all the items'
     def run
       if Dooby.cli_helper.flush?
         Dooby.current_list.flush!
-        say "All the task were deleted!".red.bold
+        say "All the items were deleted!".red.bold
       else
         say "Keep doing things!".green.bold
       end
@@ -138,12 +138,12 @@ Main {
   mode 'delete' do
     def run
       unless Dooby.current_list.tasks?
-        puts 'No tasks to delete'.red
+        puts 'No items to delete'.red
         exit
       end
       
       autocomp = Dooby.current_list.tasks.keys
-      question = 'Task ID '.red.bold + '> '
+      question = 'Item ID '.red.bold + '> '
       
       Dooby.cli_helper.keep_asking question, autocomp  do |task_id|
          
@@ -151,7 +151,7 @@ Main {
           say task_id + ' deleted...'
           exit
         else
-          say "Don't try to fool #{'Dooby'.red}, she knows such task doesn't exists"
+          say "Don't try to fool #{'Dooby'.red}, she knows such item doesn't exists"
         end
         
       end
@@ -160,11 +160,11 @@ Main {
   end
   
   mode 'bulkdelete' do
-    description "Deletes all the tasks that contains the specified tags.\n $ dooby bulkdelete %mypage @jim \n It will only delete by tag, not by plain text"
+    description "Deletes all the items that contains the specified tags.\n $ dooby bulkdelete %mypage @jim \n It will only delete by tag, not by plain text"
     def run
       
       unless Dooby.current_list.tasks?
-        puts 'No tasks to delete'.red
+        puts 'No items to delete'.red
         exit
       end
       
@@ -186,7 +186,7 @@ Main {
     def run
       
       autocomp = Dooby.current_list.tasks.keys
-      question = 'Task ID '.blue.bold + '> '
+      question = 'Item ID '.blue.bold + '> '
       
       current_task_id = ''
       
@@ -198,7 +198,7 @@ Main {
           autocomp = [todo_to_edit]
           break
         else
-          puts "Task doesn't exist".red.bold
+          puts "Item doesn't exist".red.bold
           exit
         end
 
