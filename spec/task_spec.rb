@@ -29,11 +29,11 @@ module Dooby
       it "should be valid if @todo is set to a string" do
         task = Task.new 'todo'
       
-        task.valid?.should == true
+        task.should be_valid
       end
       
       it "should be invalid if @todo is nil or empty string" do
-        Task.new.valid?.should == false
+        Task.new.should_not be_valid
       end
     end
     
