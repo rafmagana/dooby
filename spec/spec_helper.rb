@@ -1,6 +1,12 @@
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'dooby'
+require 'rspec'
+
+RSpec.configure do |config|
+  
+end
 
 def fake_todo_text
   "#context @person %project :status"
