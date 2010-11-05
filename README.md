@@ -3,11 +3,6 @@ dooby
 
 A **very simplistic** command-line to-do/note list manager in Ruby.
 
-WARNING!!!
--------
-
-You should know this gem lacks of fancy things, meaning: social, cloud, mobile, web interface, etc.
-
 Why another to-do list manager?
 ----
 
@@ -17,19 +12,13 @@ How does Dooby works?
 ---------------------
 
 ### A bunch of lists
-Dooby is directory-based, so you can maintain different to-do/notes lists in every directory you want.
+Dooby can handle one list per directory.
 
-For instance, I use one to-do list per project, that way I don't have all the tasks in one place so I can get focused in just one set of tasks, in one context.
+For instance, I use one to-do list per project, that way I don't have all the items in one place so I can get focused in just one set of items, in one context.
 
-### Priorities
-Dooby doesn't like to handle priorities, that's your concern. The main goal of Dooby is to help me to handle my today/tomorrow tasks and to handle my personal notes.
+### #tag #tag and #tag again and tell @jim :now to #tag everything in his %life as well
 
-### Due dates
-Due dates for today/tomorrow tasks? well, maybe later.
-
-### #tag #tag and #tag again and tell @jim to #tag everything in his %life as well
-
-Dooby uses some special characters to visually help us to differentiate between things and let us search tasks very easily, the ones that you might recognize are **@** and **#**, I stole the idea from Twitter, but of course they don't behave as in Twitter, the **@** sign is not an username but a character to simply tag a person, that's all, nothing else (so far).
+Dooby uses some special characters to visually help us to differentiate between things and let us search items very easily, the ones that you might recognize are **@** and **#**, I stole the idea from Twitter, but of course they don't behave as in Twitter, the **@** sign is not an username but a character to tag a person, that's all, nothing else (so far).
 
 People
 
@@ -43,7 +32,7 @@ Contexts (states of mind, mood, places, etc)
 	
 	#thinking, #sad
 
-Projects
+Item sets
 
 	%website, %shoppinglist, %whatever
 
@@ -52,10 +41,13 @@ Most of these characters are meaningless to Dooby, she (yes, she's a woman) isn'
 	#today
 	#urgent
 	#tomorrow
+	:doing
 
-All the tasks tagged with *#today* and *#urgent* will be shown in a special section every time you list your to-dos/notes.
+All the items tagged with *#today* and *#urgent* will be shown in a special section every time you list your to-dos/notes.
 
-All the tasks tagged with *#tomorrow* will be marked with the tag *#today* at the next day.
+*#tomorrow* will be converted into tomorrow's date and marked with the tag *#today* at the next day.
+
+The item tagged as **:doing** will be the *current item*, and some commands will affect it or use them for several purposes without specifying an item id.
 
 Usage
 -----
@@ -68,7 +60,7 @@ Usage
 
 	$ d init
 
-This creates a **.dooby/list.yml** file in the current directory. Dooby will save all the tasks on it.
+This creates a **.dooby/list.yml** file in the current directory. Dooby will save all the items on it.
 
 ### Adding items
 
@@ -89,10 +81,10 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	$ d l %website
 	
 	$ d l @
-	 > shows tasks related to people
+	 > shows items related to people
 
 	$ d l %
-	 > shows all the tasks with a related project
+	 > shows all the items with a related task set
 	
 #### Listing items interactively (use q or ctrl-c to interrupt)
 	
@@ -111,7 +103,7 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	Showing items containing: email
 	(b954bf)  #fix the email error in %website, talk to @peter #today
 
-**Note:** Dooby uses SHA1 as Task ID.
+**Note:** Dooby uses SHA1 as Item ID.
 
 #### Listing all the hashtags you have used
 
@@ -126,46 +118,37 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	@peter
 	@hendrix
 
-#### Listing all the projects you have tagged
+#### Listing all the item sets
 
 	$ d l%
 	%website
 
 ### Editing items (use q or ctrl-c to interrupt)
 
-**Dooby** supports autocompletion of task IDs in the *delete* and the *edit* commands, to fire it just do the same as in a bash shell, press TAB TAB.
+**Dooby** supports autocompletion of item IDs in the *delete*, *bulkdelete* and the *edit* commands, to fire it just do the same as in a bash shell, press [TAB].
 
 	$ d edit
 	
 or
 	
 	$ d e
-	Task ID > TAB TAB
-	b954bf 9cfbf4 (we only have 2 tasks)
+	Item ID > b [TAB]954bf
+
+now press Enter and [TAB] again if you want the original text of the item:
 
 	$ d e
-	Task ID > b TAB
-
-and you'll see that the task id have been auto-completed
-
-	$ d e
-	Task ID > b954bf
-
-now press Enter and TAB TAB again if you want the original text of the item:
-
-	$ d e
-	Task ID > b954bf
+	Item ID > b954bf
 	TAB or up arrow to edit > TAB
 
 	$ d e
-	Task ID > b954bf
+	Item ID > b954bf
 	TAB or up arrow to edit > #fix the email error in %website, talk to @peter #today
 
 	$ d e
-	Task ID > b954bf
+	Item ID > b954bf
 	TAB or up arrow to edit > #fix the email error in %website #today
 	
-Edit it and press Enter and the task will be saved.
+Edit it and press Enter and the item will be saved.
 
 ### Deleting items (use q or ctrl-c to interrupt)
 
@@ -174,16 +157,15 @@ Edit it and press Enter and the task will be saved.
 or
 	
 	$ d d
-	Task ID > TAB TAB
-	521a3d 9cfbf4
+	Item ID > 5 [TAB]21a3d
 	
-**Note:** the *SHA1* of the task we edited previously has changed because it's based on the content
+**Note:** the *SHA1* of the item we edited previously has changed because it's based on the content
 
 	$ d d
-	Task ID > 9cfbf4
+	Item ID > 9cfbf4
 	9cfbf4 deleted...
 
-**Dooby** won't ask you if you really want to delete the task.
+**Dooby** won't ask you if you really want to delete the item.
 
 	$ d l
 	Showing all items...
@@ -191,9 +173,9 @@ or
 
 ### Bulk delete
 
-If you want to delete all the tasks containing a tag or set of tags this is what bulk delete is useful for. This feature will delete only by tag, not simple text, actually if you enter simple text it will simply ignore it.
+If you want to delete all the items containing a tag or set of tags this is what bulk delete is useful for. This feature will delete only by tag, not simple text, actually if you enter simple text it will simply ignore it.
 
-Bulk delete supports auto-completion too. Say you want to delete all the tasks containing @hendrix AND #today.
+Bulk delete supports auto-completion too. Say you want to delete all the items containing @hendrix AND #today.
 
 	$ d bulkdelete
 
@@ -201,12 +183,12 @@ or
 	
 	$ d b
 	What do you want to bulk delete? (@, #, % allowed)
-	_ #TAB TAB
+	_ #t[TAB]oday
 	#today #doctor
 
 	$ d b
 	What do you want to bulk delete? (@, #, % allowed)
-	#today @hendrix
+	#today @h[TAB]endrix
 
 That's it
 
@@ -219,9 +201,9 @@ or
 	$ d f
 	Sure??? (yes/no)
 	yes
-	All the task were deleted!
+	All the items were deleted!
 
-### Deleting the **.dooby** directory and all the tasks
+### Deleting the **.dooby** directory and all the items
 
 	$ d trash
 
@@ -248,7 +230,7 @@ You can check the help out using the -h flag
 	  dooby list [what_to_show*] [options]+
 
 	DESCRIPTION
-	  Lists @people, #tags, %projects or tasks (default)
+	  Lists @people, #tags, %projects or items (default)
 
 	PARAMETERS
 	  what_to_show (-1 ~> what_to_show) 
