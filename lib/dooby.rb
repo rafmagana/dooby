@@ -6,8 +6,7 @@ $:.unshift(File.dirname(__FILE__))
    colored
    readline
    highline/import
-   chronic
-   ruby-debug].each { |f| require "#{f}" }
+   chronic].each { |f| require "#{f}" }
 
 #dooby
 %w[config
@@ -20,7 +19,7 @@ $:.unshift(File.dirname(__FILE__))
    task
    cli_helper].each { |f| require "dooby/#{f}" }
    
-module Dooby    
+module Dooby
   def self.init
     unless File.exist? CURRENT_TODO_LIST_FILE
       FileUtils.mkdir DOOBY_DIR
