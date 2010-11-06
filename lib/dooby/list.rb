@@ -38,7 +38,7 @@ module Dooby
       matches = []
       @tasks.each do |id, task|
         delete! id if only_tags.all? { |tag| task.todo.include? tag }
-      end
+      end unless only_tags.empty?
     end
 
     def edit!(task_id)

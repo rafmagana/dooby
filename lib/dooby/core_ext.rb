@@ -15,7 +15,7 @@ class Array
 
   def only_tags(*wanted_tags)
     wanted_tags = '#' if wanted_tags.empty?
-    tags = self.grep(/[#{wanted_tags}]/)
+    tags = self.grep(/[#{wanted_tags}]./)
     tags.flatten
   end
   
