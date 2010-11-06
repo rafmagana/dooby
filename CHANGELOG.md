@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-Version 0.3.0 (November 03, 2010)
+Version 0.3.0 (November 06, 2010)
 --------------------------------
 
 * use as git commit message the item marked as :doing wth **$ dooby commit**
