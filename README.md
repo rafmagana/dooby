@@ -6,7 +6,7 @@ A **very simplistic** command-line to-do/note list manager in Ruby.
 Why another to-do list manager?
 ----
 
-I spend a lot of time in the terminal and I didn't really like any of the current options.
+I spend a lot of time in the terminal and I haven't liked any of the current options.
 
 How does Dooby works?
 ---------------------
@@ -16,7 +16,8 @@ Dooby can handle one list per directory.
 
 For instance, I use one to-do list per project, that way I don't have all the items in one place so I can get focused in just one set of items, in one context.
 
-### #tag #tag and #tag again and tell @jim :now to #tag everything in his %life as well
+### A bunch of tags
+#### #tag #tag and #tag again and tell @jim :now to #tag everything in his %life as well
 
 Dooby uses some special characters to visually help us to differentiate between things and let us search items very easily, the ones that you might recognize are **@** and **#**, I stole the idea from Twitter, but of course they don't behave as in Twitter, the **@** sign is not an username but a character to tag a person, that's all, nothing else (so far).
 
@@ -32,67 +33,88 @@ Contexts (states of mind, mood, places, etc)
 	
 	#thinking, #sad
 
-Item sets
+Item sets (for objectives that takes more than one task to achieve)
 
-	%website, %shoppinglist, %whatever
-
-Most of these characters are meaningless to Dooby, she (yes, she's a woman) isn't aware of them, Dooby is aware only of some of them:
+	%fix_computer, %shopping_list, %subproject, %today
+	
+As you can see we can use % as if it were #, I mean, as a context, this is because most of these tags are meaningless to Dooby, she (yes, she's a woman) isn't aware of them, Dooby is aware only of some of them:
 
 	#today
 	#urgent
 	#tomorrow
 	:doing
 
+#### #today and #urgent (**not %today, not %urgent**)
 All the items tagged with *#today* and *#urgent* will be shown in a special section every time you list your to-dos/notes.
 
-*#tomorrow* will be converted into tomorrow's date and marked with the tag *#today* at the next day.
+#### #tomorrow
+It will be converted into tomorrow's date and marked with the tag *#today* at the next day.
+Say today is November, 2 2010, and you create an item like this:
 
-The item tagged as **:doing** will be the *current item*, and some commands will affect it or use them for several purposes without specifying an item id.
+    I need to #fix the #bug #tomorrow
 
-Usage
------
+Dooby will save it as
 
-###Creating an alias
+    I need to #fix the #bug {Nov/03/2010}
+
+Now say today is November, 3 2010, Dooby will show it like this:
+
+    I need to #fix the #bug #today
+
+Of course it'd be shown in the TODAY section.
+
+#### :doing
+`xThe item tagged as **:doing** will be the *current item* and some commands will affect it or use it for specifying an item id.
+
+Basic Usage
+-----------
+
+NOTE: All the commands have a shortcut, which is the first or two first letters of it.
+
+First of all, create an alias if you want to save some keystrokes:
 
 	$ alias d='dooby'
 
 ### Initializing Dooby
 
 	$ d init
+	$ d i
 
-This creates a **.dooby/list.yml** file in the current directory. Dooby will save all the items on it.
+This creates a **.dooby/list.yml** file in the current directory. Dooby will save all the items in it.
 
 ### Adding items
 
-	$ d add "#fix the email error in %website, talk to @peter #today"
+	$ d add "#fix the email error in %website, check this out with @peter #today"
 	
 	$ d a "learn to use the #aliases of the #commands"
+	
+	$ d a "#pair with @jim on the %tickets module"
 
 ### Listing items
+
+Try the following commands once you create the items above:
 
 	$ d list @peter
 
 	$ d l today
-	
-	$ d l \#today
 	
 	$ d l "#today"
 	
 	$ d l %website
 	
 	$ d l @
-	 > shows items related to people
 
 	$ d l %
-	 > shows all the items with a related task set
 	
 #### Listing items interactively (use q or ctrl-c to interrupt)
 	
+You can use the [TAB] key to autocomplete tags
+
 	$ d il
 	
-	> #today
+	> #t[TAB]oday
 	Showing items containing: #today
-	 (b954bf)  #fix the email error in %website, talk to @peter #today
+	 (393415)  #fix the email error in %website, check this out with @peter #today
 	 (9cfbf4)  Need to go to the #doctor @hendrix #today
 	
 	> #doctor
@@ -101,7 +123,7 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	
 	> email
 	Showing items containing: email
-	(b954bf)  #fix the email error in %website, talk to @peter #today
+	(393415)  #fix the email error in %website, check this out with @peter #today
 
 **Note:** Dooby uses SHA1 as Item ID.
 
@@ -111,53 +133,44 @@ This creates a **.dooby/list.yml** file in the current directory. Dooby will sav
 	#today
 	#doctor
 	#fix
+	#pair
 	
 #### Listing all the people you have tagged
 	
 	$ d l@
 	@peter
 	@hendrix
+	@jim
 
 #### Listing all the item sets
 
 	$ d l%
 	%website
+	%tickets
 
 ### Editing items (use q or ctrl-c to interrupt)
 
-**Dooby** supports autocompletion of item IDs in the *delete*, *bulkdelete* and the *edit* commands, to fire it just do the same as in a bash shell, press [TAB].
+**Dooby** supports autocompletion of item IDs in the *delete*, *bulkdelete* and the *edit* commands as well.
 
-	$ d edit
-	
-or
-	
-	$ d e
-	Item ID > b [TAB]954bf
+	$ d edit	
+	Item ID > b[TAB]954bf
 
 now press Enter and [TAB] again if you want the original text of the item:
 
 	$ d e
 	Item ID > b954bf
-	TAB or up arrow to edit > TAB
+	TAB or up arrow to edit > [TAB]#fix the email error in %website, check this out with @peter #today
 
-	$ d e
-	Item ID > b954bf
-	TAB or up arrow to edit > #fix the email error in %website, talk to @peter #today
+Edit it and press Enter and the item will be saved.
 
 	$ d e
 	Item ID > b954bf
 	TAB or up arrow to edit > #fix the email error in %website #today
 	
-Edit it and press Enter and the item will be saved.
-
 ### Deleting items (use q or ctrl-c to interrupt)
 
 	$ d delete
-	
-or
-	
-	$ d d
-	Item ID > 5 [TAB]21a3d
+	Item ID > 5[TAB]21a3d
 	
 **Note:** the *SHA1* of the item we edited previously has changed because it's based on the content
 
@@ -165,56 +178,61 @@ or
 	Item ID > 9cfbf4
 	9cfbf4 deleted...
 
-**Dooby** won't ask you if you really want to delete the item.
+**Dooby** won't ask you if you really really want to delete the item.
 
 	$ d l
 	Showing all items...
-	 (521a3d)  #fix the email error in %website #today
+	 (c733ff)  #fix the email error in %website #today
 
 ### Bulk delete
 
-If you want to delete all the items containing a tag or set of tags this is what bulk delete is useful for. This feature will delete only by tag, not simple text, actually if you enter simple text it will simply ignore it.
+If you want to delete all the items containing an exact tag or set of tags or a tag starting with some text you can use bulk delete to do so. This feature will delete only by tag, not simple text, actually if you enter simple text it will simply ignore it.
 
 Bulk delete supports auto-completion too. Say you want to delete all the items containing @hendrix AND #today.
 
 	$ d bulkdelete
+	What do you want to bulk delete?
+	> #t[TAB]oday @h[TAB]endrix
 
-or
-	
-	$ d b
-	What do you want to bulk delete? (@, #, % allowed)
-	_ #t[TAB]oday
-	#today #doctor
+What if you want to delete all the items containing a tag starting with **#ma** like *#mac*, *#manual*, and *#macro*?, simple:
 
 	$ d b
-	What do you want to bulk delete? (@, #, % allowed)
-	#today @h[TAB]endrix
+	What do you want to bulk delete?
+	> #ma [ENTER]
 
 That's it
 
 ### Deleting all the items
 	
 	$ d flush
-	
-or
-
-	$ d f
 	Sure??? (yes/no)
 	yes
 	All the items were deleted!
 
-### Deleting the **.dooby** directory and all the items
+### Deleting the **.dooby** directory (list.yml included, of course)
 
 	$ d trash
-
-or
-
-	$ d t
 	Sure??? (yes/no)
 	yes
 	No more dooby here T_T
 	
-### Help
+## The current item (item tagged with **:doing**)
+
+### Use an item as commit message (git)
+
+Let's say we add a task we need to get done:
+
+    $ d a "#fix the bug in cart :doing"
+
+and that once we get the task done we want to commit the fix:
+
+	$ git add the_file
+	
+	$ d commit
+	The commit message was #fix the bug in cart
+
+	
+## Help
 
 You can check the help out using the -h flag
 
@@ -240,6 +258,17 @@ Known bugs
 ----------
 
 * In Windows the text is shown with the color codes even installing the *win32console* gem
+
+To Do
+-----
+
+* refactor List#find method, it must return a hash of items not the strings to show in terminal
+* **$ dooby done** should tag the current item as *:done*
+* Make it configurable through an external file
+* Get rid of special chars (@, #, %) when item is used as git commit message
+* if item is tagged as *:doing* check if there are others tagged with the same tag, if so, tag them with *:hold*
+* Hide items tagged as *:hidden*
+* Only show items not containing the specified word(s)
 
 Special Thanks
 --------------
