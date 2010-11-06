@@ -64,7 +64,7 @@ Now say today is November, 3 2010, Dooby will show it like this:
 Of course it'd be shown in the TODAY section.
 
 #### :doing
-`xThe item tagged as **:doing** will be the *current item* and some commands will affect it or use it for specifying an item id.
+The item tagged as **:doing** will be the *current item* and some commands will affect it or use it without specifying an item id.
 
 Basic Usage
 -----------
