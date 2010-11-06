@@ -75,19 +75,32 @@ module Dooby
           YAML.stub(:load_file).and_return fake_tasks
           @list = List.new @location
           @list.stub(:save!).and_return true
-          
-          @list.should_receive(:save!).and_return true
         end
         
         it "should delete all the items containing a keyword" do
+          @list.should_receive(:save!).and_return true
           @list.bulk_delete! ['#context']
           @list.tasks.should be_empty
         end
         
-        it "should delete all the items containing a set of keywords" do          
+        it "should delete all the items containing a set of keywords" do
+          @list.should_receive(:save!).and_return true
           @list.bulk_delete! %w[#context @person %project]
           @list.tasks.should be_empty
         end
+        
+        it 'should not delete anything if the argument does not contain any tags' do
+          old_tasks = @list.tasks
+          @list.bulk_delete! %w[# @ %]
+          @list.tasks.should == old_tasks
+        end
+        
+        it 'should not delete anything if the argument is empty' do
+          old_tasks = @list.tasks
+          @list.bulk_delete! []
+          @list.tasks.should == old_tasks
+        end
+        
       end
       
       describe '#edit!' do
