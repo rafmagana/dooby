@@ -23,7 +23,7 @@ module Dooby
       string_pattern = SPECIAL_CHARS.collect { |c| "(#{c}\\w+)" }
       pattern = Regexp.new(string_pattern.join("|"))
       
-      colorized_todo.gsub(pattern).each do |todo|
+      colorized_todo.gsub(pattern) do |todo|
         color = SPECIAL_CHAR_COLORS[todo.first_char]
         todo.send color
       end
