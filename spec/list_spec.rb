@@ -138,24 +138,60 @@ module Dooby
       
       describe '#find' do
         describe 'with empty array as argument' do
-          it 'should return a list of all the items'
+          it 'should return a list of all the items' do
+            YAML.stub(:load_file).and_return fake_tasks
+            list = List.new @location
+
+            list.find([]).should == formatted(list)
+          end
         end
         
         describe 'with special tags as argument' do
-          it 'should return only the specified tags'
+          it 'returns one by specified tag' do
+            YAML.stub(:load_file).and_return fake_tasks
+            list = List.new @location
+            list.add(task = Task.new('@leader #context :status'))
+            
+            list.find(['@leader']).should == [task.to_row]
+          end
+          it 'should return many by the specified tags' do
+            YAML.stub(:load_file).and_return fake_tasks
+            list = List.new @location
+
+            list.find(['@person']).should == formatted(list)
+          end
         end
         
         describe 'with an array of terms as argument' do
-          it 'should return only the items containing all the specified tags'
+          it 'should return only the items containing all the specified tags' do
+            YAML.stub(:load_file).and_return fake_tasks
+            list = List.new @location
+            list.add(task = Task.new('@leader #context :status')) 
+            list.add(task_two = Task.new('@leader #context :done')) 
+            
+            list.find(['#context', '@leader']).should == formatted([task, task_two])
+          end
         end
       end
       
       describe '#all_tags' do
-        it 'should return only the tags of all the items'
+        it 'should return the tags of all the items' do
+          YAML.stub(:load_file).and_return fake_tasks
+          list = List.new @location
+          
+          #NOTE shouldn't this array be of uniq tags?
+          list.all_tags.should == ["#context", "@person", "%project", ":status0", "#context", "@person", "%project", ":status1", "#context", "@person", "%project", ":status2"]
+        end
       end
       
       describe '#current_item' do
-        it 'should return the item tagged with :doing'
+        it 'should return the item tagged with :doing' do
+          YAML.stub(:load_file).and_return fake_tasks
+          list = List.new @location
+          list.add(Task.new('@leader #context :status :doing')) 
+          
+          list.current_item.should == "@leader #context :status"
+        end
       end
     end
   end

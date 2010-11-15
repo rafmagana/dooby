@@ -59,7 +59,7 @@ module Dooby
       @tasks.dup
     end
     
-    def find (what_to_show=[])
+    def find(what_to_show=[])
       list = []
 
       if @tasks.empty?
@@ -78,14 +78,14 @@ module Dooby
               to_add << task_with_today_tag
               to_delete << id
             else
-              list << TASK_ROW_TEMPLATE.call(task)
+              list << task.to_row
             end
           end
           
           to_delete.each { |task_id| delete!(task_id) }
           to_add.each do |task|
             add task
-            list << TASK_ROW_TEMPLATE.call(task)
+            list << task.to_row
           end
           
         when *SPECIAL_CHARS then
@@ -104,7 +104,7 @@ module Dooby
           end
           @tasks.each do |id, task|
             if what_to_show.all? { |term| task.todo.include? term }
-              list << TASK_ROW_TEMPLATE.call(task)
+              list << task.to_row
             end
           end
           

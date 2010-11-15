@@ -20,3 +20,12 @@ def fake_tasks
   end
   tasks
 end
+
+# returns tasks list formated for console
+def formatted(tasks)
+  if tasks.is_a? Array
+    tasks.map {|task| task.to_row}
+  else
+    tasks.tasks.map {|id,task| task.to_row}
+  end
+end

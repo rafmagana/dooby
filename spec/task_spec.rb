@@ -46,6 +46,14 @@ module Dooby
         task.todo.should == todo
       end
     end
+
+    describe "#to_row" do
+      it "returns representation in row for console printing" do
+        task = Task.new "#context @person %project :status"
+        task.to_row.should == " (\e[31m#{task.id}\e[0m)  \e[33m#context\e[0m \e[34m@person\e[0m \e[37m%project\e[0m \e[35m:status\e[0m"
+        
+      end
+    end
     
   end
 end

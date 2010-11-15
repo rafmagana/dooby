@@ -27,7 +27,10 @@ module Dooby
         color = SPECIAL_CHAR_COLORS[todo.first_char]
         todo.send color
       end
-      
     end    
+
+    def to_row
+      TASK_ROW_TEMPLATE.call(self)
+    end
   end
 end
