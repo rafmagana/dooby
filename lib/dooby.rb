@@ -26,8 +26,8 @@ module Dooby
       Base.create_file
       true
     else
-       puts "Todo list already exists inside this directory"
-       false
+      puts "Todo list already exists inside this directory"
+      false
     end
   end
   
@@ -37,11 +37,6 @@ module Dooby
   
   def self.current_list
     @list ||= List.new CURRENT_TODO_LIST_FILE
-  end
-  
-  def self.reload!
-    @list = nil
-    current_list
   end
   
   def self.cli_helper

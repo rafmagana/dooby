@@ -10,9 +10,6 @@ module Dooby
     describe '#new' do
       
       it "should load the list of items if list.yml exists" do
-        File.stub(:exist?).and_return true
-        YAML.stub(:load_file).and_return fake_tasks
-        
         File.should_receive(:exist?).with(CURRENT_TODO_LIST_FILE).and_return true
         YAML.should_receive(:load_file).with(@location).and_return fake_tasks
         
@@ -24,7 +21,6 @@ module Dooby
       it 'should empty the list of items and clear the list.yml file' do
         File.stub(:exist?).and_return true
         YAML.stub(:load_file).and_return fake_tasks
-        File.stub(:open).and_return true
         
         File.should_receive(:open).with(@location, 'w').and_return true
         
@@ -44,7 +40,6 @@ module Dooby
           YAML.stub(:load_file).and_return {}
         
           list = List.new @location
-          list.stub(:save!).and_return true
           task = Task.new fake_todo_text
         
           list.should_receive(:save!).and_return true
