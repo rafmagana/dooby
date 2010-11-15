@@ -6,6 +6,7 @@ group :development do
 	gem "aruba", 	"0.2.4"
 	gem "jeweler", 	"1.5.0"
 	gem "rcov", 	"0.9.9"
+  gem "autotest", "~> 4.3.0"
 end
 
 group :runtime do

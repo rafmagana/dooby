@@ -5,6 +5,7 @@ GEM
     aruba (0.2.4)
       background_process
       cucumber (~> 0.9.3)
+    autotest (4.3.2)
     background_process (1.2)
     builder (2.1.2)
     chronic (0.3.0)
@@ -49,6 +50,7 @@ PLATFORMS
 
 DEPENDENCIES
   aruba (= 0.2.4)
+  autotest (~> 4.3.0)
   chronic (= 0.3.0)
   colored (= 1.2)
   cucumber (= 0.9.3)
