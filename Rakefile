@@ -3,7 +3,7 @@ require 'rubygems'
 require 'bundler'
 
 begin
-  Bundler.setup(:default, :development)
+  Bundler.setup(:development, :runtime)
 rescue Bundler::BundlerError => e
   $stderr.puts e.message
   $stderr.puts "Run `bundle install` to install missing gems"
@@ -20,17 +20,8 @@ Jeweler::Tasks.new do |gem|
   gem.email = "raf.magana@gmail.com"
   gem.homepage = "http://github.com/rafmagana/dooby"
   gem.authors = ["Rafael Magaña"]
-
-  gem.add_runtime_dependency('main', ">= 4.2.0")
-  gem.add_runtime_dependency('colored', ">= 1.2")
-  gem.add_runtime_dependency('highline', ">= 1.6.1")
-  gem.add_runtime_dependency('chronic', ">= 0.3.0")
-
-  gem.add_development_dependency "rspec", ">= 2.0.1"
-  gem.add_development_dependency "bundler", "~> 1.0.0"
-  gem.add_development_dependency "jeweler", "~> 1.5.0.pre5"
-  gem.add_development_dependency "rcov", ">= 0"
 end
+
 Jeweler::RubygemsDotOrgTasks.new
 
 require 'rspec/core'
@@ -57,4 +48,3 @@ Rake::RDocTask.new do |rdoc|
 end
 
 task :bi => [:build, :install]
-  
