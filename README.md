@@ -254,6 +254,17 @@ You can check the help out using the -h flag
 	  what_to_show (-1 ~> what_to_show) 
 	  --help, -h 
 
+Ruby Versions
+-------------
+
+Dooby works on the following rubies:
+
+* 1.8.7
+* 1.9.1
+* 1.9.2-rc2
+* REE 1.8.7-2010.02
+* JRuby 1.5.1 (Thanks to [jpoz](https://github.com/jpoz))
+
 Known bugs
 ----------
 
