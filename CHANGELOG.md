@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+Version 0.3.1 (November 15, 2010)
+--------------------------------
+
+* Fixes to make Dooby work with JRuby and 1.9.2
+* Fix dependency duplication in gemspec
+
 Version 0.3.0 (November 06, 2010)
 --------------------------------
 
