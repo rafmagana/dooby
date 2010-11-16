@@ -16,7 +16,7 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     diff-lcs (1.1.2)
-    fattr (2.1.0)
+    fattr (2.2.0)
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
@@ -49,10 +49,10 @@ PLATFORMS
 
 DEPENDENCIES
   aruba (= 0.2.4)
-  bundler (= 1.0.0)
   chronic (= 0.3.0)
   colored (= 1.2)
   cucumber (= 0.9.3)
+  fattr (= 2.2.0)
   highline (= 1.6.1)
   jeweler (= 1.5.0)
   main (= 4.2.0)
