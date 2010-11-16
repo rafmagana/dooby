@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dooby}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rafael Maga\303\261a"]
@@ -53,7 +53,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/rafmagana/dooby}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{A very simplistic command-line tag-driven to-do list manager in Ruby}
+  s.summary = %q{A very simplistic command-line to-do list manager in Ruby}
   s.test_files = [
     "spec/dooby_module_spec.rb",
     "spec/list_spec.rb",
@@ -70,10 +70,10 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<colored>, ["= 1.2"])
       s.add_runtime_dependency(%q<highline>, ["= 1.6.1"])
       s.add_runtime_dependency(%q<chronic>, ["= 0.3.0"])
+      s.add_runtime_dependency(%q<fattr>, ["= 2.2.0"])
       s.add_development_dependency(%q<rspec>, ["= 2.0.0"])
       s.add_development_dependency(%q<cucumber>, ["= 0.9.3"])
       s.add_development_dependency(%q<aruba>, ["= 0.2.4"])
-      s.add_development_dependency(%q<bundler>, ["= 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["= 1.5.0"])
       s.add_development_dependency(%q<rcov>, ["= 0.9.9"])
     else
@@ -81,10 +81,10 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<colored>, ["= 1.2"])
       s.add_dependency(%q<highline>, ["= 1.6.1"])
       s.add_dependency(%q<chronic>, ["= 0.3.0"])
+      s.add_dependency(%q<fattr>, ["= 2.2.0"])
       s.add_dependency(%q<rspec>, ["= 2.0.0"])
       s.add_dependency(%q<cucumber>, ["= 0.9.3"])
       s.add_dependency(%q<aruba>, ["= 0.2.4"])
-      s.add_dependency(%q<bundler>, ["= 1.0.0"])
       s.add_dependency(%q<jeweler>, ["= 1.5.0"])
       s.add_dependency(%q<rcov>, ["= 0.9.9"])
     end
@@ -93,10 +93,10 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<colored>, ["= 1.2"])
     s.add_dependency(%q<highline>, ["= 1.6.1"])
     s.add_dependency(%q<chronic>, ["= 0.3.0"])
+    s.add_dependency(%q<fattr>, ["= 2.2.0"])
     s.add_dependency(%q<rspec>, ["= 2.0.0"])
     s.add_dependency(%q<cucumber>, ["= 0.9.3"])
     s.add_dependency(%q<aruba>, ["= 0.2.4"])
-    s.add_dependency(%q<bundler>, ["= 1.0.0"])
     s.add_dependency(%q<jeweler>, ["= 1.5.0"])
     s.add_dependency(%q<rcov>, ["= 0.9.9"])
   end
