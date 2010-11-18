@@ -169,7 +169,7 @@ module Dooby
             list.add(task = Task.new('@leader #context :status')) 
             list.add(task_two = Task.new('@leader #context :done')) 
             
-            list.find(['#context', '@leader']).should == formatted([task, task_two])
+            list.find(['#context', '@leader']).should =~ formatted([task_two, task])
           end
         end
       end
@@ -180,7 +180,7 @@ module Dooby
           list = List.new @location
           
           #NOTE shouldn't this array be of uniq tags?
-          list.all_tags.should == ["#context", "@person", "%project", ":status0", "#context", "@person", "%project", ":status1", "#context", "@person", "%project", ":status2"]
+          list.all_tags.should =~ ["#context", "%project", "@person", ":status0", "#context", "@person", "%project", ":status1", "#context", "@person", "%project", ":status2"]
         end
       end
       
