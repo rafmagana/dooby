@@ -3,9 +3,13 @@ $:.unshift(File.dirname(__FILE__))
 #dependencies
 require 'fileutils'
 require 'digest/sha1'
-require 'colored'
+
 require 'redline'
+gem     'colored', '1.2'
+require 'colored'
+gem     'highline', '1.6.1'
 require 'highline/import'
+gem     'chronic', '0.3.0'
 require 'chronic'
 
 
