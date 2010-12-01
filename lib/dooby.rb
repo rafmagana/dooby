@@ -1,24 +1,24 @@
 $:.unshift(File.dirname(__FILE__)) 
 
 #dependencies
-%w[fileutils 
-   digest/sha1
-   colored
-   readline
-   highline/import
-   chronic].each { |f| require "#{f}" }
+require 'fileutils'
+require 'digest/sha1'
+require 'colored'
+require 'redline'
+require 'highline/import'
+require 'chronic'
 
-#dooby
-%w[config
-   exceptions
-   core_ext
-   base
-   dates_helper
-   list
-   status_generator
-   task
-   cli_helper].each { |f| require "dooby/#{f}" }
-   
+
+require 'dooby/config'
+require 'dooby/exceptions'
+require 'dooby/core_ext'
+require 'dooby/base'
+require 'dooby/dates_helper'
+require 'dooby/list'
+require 'dooby/status_generator'
+require 'dooby/task'
+require 'dooby/cli_helper'
+
 module Dooby
   def self.init
     unless File.exist? CURRENT_TODO_LIST_FILE
