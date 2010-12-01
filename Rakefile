@@ -23,7 +23,7 @@ Jeweler::Tasks.new do |gem|
   gem.add_dependency "colored",  "1.2"
   gem.add_dependency "highline", "1.6.1"
   gem.add_dependency "chronic",  "0.3.0"
-  gem.add_dependency "fattr",    "2.2.0"
+  gem.add_dependency "redline"
 end
 
 Jeweler::RubygemsDotOrgTasks.new
