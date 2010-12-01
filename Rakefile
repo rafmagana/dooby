@@ -1,14 +1,5 @@
 # -*- encoding: utf-8 -*-
 require 'rubygems'
-require 'bundler'
-
-begin
-  Bundler.setup(:development, :runtime)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
 require 'rake'
 
 require 'jeweler'
@@ -20,6 +11,19 @@ Jeweler::Tasks.new do |gem|
   gem.email = "raf.magana@gmail.com"
   gem.homepage = "http://github.com/rafmagana/dooby"
   gem.authors = ["Rafael Magaña"]
+
+  gem.add_development_dependency "rspec",    "2.0.0"
+  gem.add_development_dependency "cucumber", "0.9.3"
+  gem.add_development_dependency "aruba",    "0.2.4"
+  gem.add_development_dependency "jeweler",  "1.5.0"
+  gem.add_development_dependency "rcov",     "0.9.9"
+  gem.add_development_dependency "autotest", "~> 4.3.0"
+  
+  gem.add_dependency "main",     "4.2.0"
+  gem.add_dependency "colored",  "1.2"
+  gem.add_dependency "highline", "1.6.1"
+  gem.add_dependency "chronic",  "0.3.0"
+  gem.add_dependency "fattr",    "2.2.0"
 end
 
 Jeweler::RubygemsDotOrgTasks.new
