@@ -5,6 +5,7 @@ STDOUT.sync = true
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require 'rubygems'
+gem     "main",     "4.2.0"
 require 'main'
 require 'dooby'
 
